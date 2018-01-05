@@ -1,4 +1,4 @@
-// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
+
 
 #include "Bomberman_TestGameMode.h"
 #include "Bomberman_TestPlayerController.h"
@@ -8,12 +8,13 @@
 ABomberman_TestGameMode::ABomberman_TestGameMode()
 {
 	// use our custom PlayerController class
-	PlayerControllerClass = ABomberman_TestPlayerController::StaticClass();
+	//PlayerControllerClass = ABomberman_TestPlayerController::StaticClass();
 
 	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/TopDownCPP/Blueprints/TopDownCharacter"));
+	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/TopDownCPP/Blueprints/MainBomberman_BP"));
 	if (PlayerPawnBPClass.Class != NULL)
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
 }
