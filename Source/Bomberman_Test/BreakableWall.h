@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "PowerUp.h"
 #include "BreakableWall.generated.h"
+
+
 
 UCLASS()
 class BOMBERMAN_TEST_API ABreakableWall : public AActor
@@ -19,7 +22,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable, Category = PowerUps)
-	void DropPowerUp();
+	APowerUp * DropPowerUp();
 
 protected:
 	// Called when the game starts or when spawned

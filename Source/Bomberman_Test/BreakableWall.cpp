@@ -3,6 +3,7 @@
 #include "BreakableWall.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Materials/Material.h"
+#include "Engine/World.h"
 #include "Components/StaticMeshComponent.h"
 
 
@@ -15,11 +16,11 @@ ABreakableWall::ABreakableWall()
 
 	BoxMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("cube"));
 	SetRootComponent(BoxMesh);
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("Static Mesh'/Engine/BasicShapes/Cube.Cube'"));
+	ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("Static Mesh'/Engine/BasicShapes/Cube.Cube'"));
 	if (MeshAsset.Succeeded())
 		BoxMesh->SetStaticMesh(MeshAsset.Object);
 
-	static ConstructorHelpers::FObjectFinder<UMaterial> MaterialAsset(TEXT("Material'/Game/StarterContent/Materials/M_Wood_Oak.M_Wood_Oak'"));
+	ConstructorHelpers::FObjectFinder<UMaterial> MaterialAsset(TEXT("Material'/Game/StarterContent/Materials/M_Wood_Oak.M_Wood_Oak'"));
 	if (MaterialAsset.Succeeded())
 		BoxMesh->SetMaterial(0,MaterialAsset.Object);
 }
@@ -35,10 +36,14 @@ void ABreakableWall::BeginPlay()
 void ABreakableWall::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	
 }
 
-void ABreakableWall::DropPowerUp()
+APowerUp * ABreakableWall::DropPowerUp()
 {
+	APowerUp * newPowerUp = nullptr;
+	if (rand() % 10 <= 3)
+		newPowerUp = GetWorld()->SpawnActor<APowerUp>(GetActorLocation() + FVector(0,0,75), GetActorRotation());
 
+	return newPowerUp;
 }
